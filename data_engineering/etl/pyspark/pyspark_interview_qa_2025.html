@@ -1,0 +1,290 @@
+<h2>PySpark Interview Questions and Answers (2025 Edition)</h2>
+
+<hr />
+
+<h3>🔹 General Questions</h3>
+
+<ol>
+<li><p><strong>What is PySpark, and how does it work?</strong></p>
+
+<ul>
+<li>PySpark is the Python API for Apache Spark. It allows Python developers to interface with Spark and use its distributed computing capabilities for big data processing. PySpark supports RDDs, DataFrames, and SQL APIs.</li>
+</ul></li>
+<li><p><strong>Explain the architecture of PySpark.</strong></p>
+
+<ul>
+<li>PySpark runs on top of Apache Spark, using a driver and multiple executors:
+<ul>
+<li><strong>Driver</strong>: Orchestrates execution.</li>
+<li><strong>Executors</strong>: Run tasks in distributed fashion.</li>
+<li><strong>Cluster Manager</strong>: (YARN, Mesos, Standalone) handles resource allocation.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Differences between RDD, DataFrame, and Dataset</strong>:
+| Feature      | RDD             | DataFrame           | Dataset (Scala/Java) |
+|--------------|------------------|----------------------|-----------------------|
+| Type Safety | Yes             | No                   | Yes                   |
+| Performance | Low             | High (Catalyst)      | High                  |
+| Ease of Use | Low             | High                 | Moderate              |</p></li>
+<li><p><strong>How does Spark handle fault tolerance?</strong></p>
+
+<ul>
+<li>Through lineage information and DAG. If a partition fails, Spark re-computes lost data using the lineage.</li>
+</ul></li>
+<li><p><strong>Transformations in PySpark:</strong></p>
+
+<ul>
+<li>Lazy operations on RDDs/DataFrames, e.g., <code>map()</code>, <code>filter()</code>, <code>select()</code>, <code>groupBy()</code>.</li>
+</ul></li>
+<li><p><strong>Narrow vs Wide Transformations:</strong></p>
+
+<ul>
+<li><strong>Narrow</strong>: Only one parent partition (e.g., <code>map</code>, <code>filter</code>).</li>
+<li><strong>Wide</strong>: Multiple parent partitions (e.g., <code>groupByKey</code>, <code>reduceByKey</code>). Triggers shuffling.</li>
+</ul></li>
+<li><p><strong>Significance of DAG in Spark:</strong></p>
+
+<ul>
+<li>DAG (Directed Acyclic Graph) represents the lineage of RDD transformations. Helps optimize execution plans.</li>
+</ul></li>
+<li><p><strong>Driver vs Executor:</strong></p>
+
+<ul>
+<li><strong>Driver</strong>: Maintains the Spark context and schedules tasks.</li>
+<li><strong>Executor</strong>: Executes tasks and returns results to the driver.</li>
+</ul></li>
+<li><p><strong>Schema Inference:</strong></p>
+
+<ul>
+<li>Spark infers schema automatically from the data types in a DataFrame using reflection or user-provided schemas.</li>
+</ul></li>
+<li><p><strong>Types of Joins in PySpark:</strong></p>
+
+<ul>
+<li><code>inner</code>, <code>left_outer</code>, <code>right_outer</code>, <code>full_outer</code>, <code>semi</code>, <code>anti</code>, and <code>cross</code> joins.</li>
+</ul></li>
+</ol>
+
+<hr />
+
+<h3>⚡ Performance Optimization Questions</h3>
+
+<ol start="11">
+<li><p><strong><code>cache()</code> vs <code>persist()</code></strong></p>
+
+<ul>
+<li><code>cache()</code> = <code>persist(StorageLevel.MEMORY_AND_DISK)</code> (default).</li>
+<li><code>persist()</code> allows choosing different storage levels (e.g., disk-only).</li>
+</ul></li>
+<li><p><strong>Broadcast joins:</strong></p>
+
+<ul>
+<li>Used when one table is small. Reduces shuffling and speeds up joins.</li>
+</ul></li>
+<li><p><strong>Spark job optimizations:</strong></p>
+
+<ul>
+<li>Caching, partitioning, avoiding shuffles, broadcast joins, predicate pushdown, AQE.</li>
+</ul></li>
+<li><p><strong>Benefits of Partitioning:</strong></p>
+
+<ul>
+<li>Parallelism, reduced data movement, efficient I/O.</li>
+</ul></li>
+<li><p><strong><code>repartition()</code> vs <code>coalesce()</code></strong></p>
+
+<ul>
+<li><code>repartition(n)</code> – increases partitions, full shuffle.</li>
+<li><code>coalesce(n)</code> – reduces partitions without full shuffle.</li>
+</ul></li>
+<li><p><strong>Handling Skewed Data:</strong></p>
+
+<ul>
+<li>Salting keys, broadcasting small table, custom partitioners.</li>
+</ul></li>
+<li><p><strong>Lazy Evaluation:</strong></p>
+
+<ul>
+<li>Transformations are lazy and only executed upon an action (like <code>count()</code>, <code>collect()</code>).</li>
+</ul></li>
+<li><p><strong>Storage Levels:</strong></p>
+
+<ul>
+<li>MEMORY<em>ONLY, MEMORY</em>AND<em>DISK, DISK</em>ONLY, OFF_HEAP, etc.</li>
+</ul></li>
+<li><p><strong>Optimizing Joins:</strong></p>
+
+<ul>
+<li>Use broadcast joins, filter before join, prefer <code>map-side</code> joins, ensure partition alignment.</li>
+</ul></li>
+<li><p><strong>Adaptive Query Execution (AQE):</strong></p>
+
+<ul>
+<li>Dynamically adjusts query plans at runtime for better optimization.</li>
+</ul></li>
+</ol>
+
+<hr />
+
+<h3>💻 PySpark Coding Questions</h3>
+
+<ol start="21">
+<li><p><strong>Top 3 Most Occurring Words:</strong>
+<code>python
+rdd = sc.textFile("file.txt")
+rdd.flatMap(lambda x: x.split())\
+.map(lambda word: (word, 1))\
+.reduceByKey(lambda a, b: a + b)\
+.takeOrdered(3, key=lambda x: -x[1])
+</code></p></li>
+<li><p><strong>Remove Duplicates:</strong>
+<code>python
+df.dropDuplicates()
+</code></p></li>
+<li><p><strong>Word Count:</strong>
+<code>python
+rdd.flatMap(lambda x: x.split())\
+.map(lambda word: (word, 1))\
+.reduceByKey(lambda a, b: a + b)
+</code></p></li>
+<li><p><strong>Group by and Average:</strong>
+<code>python
+df.groupBy("department").agg(avg("salary"))
+</code></p></li>
+<li><p><strong>Handle Nulls:</strong>
+<code>python
+df.fillna(0)
+df.dropna()
+df.na.replace("NA", "Unknown")
+</code></p></li>
+<li><p><strong>Count Distinct:</strong>
+<code>python
+df.select(countDistinct("column_name"))
+</code></p></li>
+<li><p><strong>Filter Records:</strong>
+<code>python
+df.filter(df.salary &gt; 50000)
+</code></p></li>
+<li><p><strong>Read JSON:</strong>
+<code>python
+df = spark.read.json("file.json")
+</code></p></li>
+<li><p><strong>Second Highest Salary:</strong>
+```python
+from pyspark.sql.window import Window
+from pyspark.sql.functions import dense_rank</p></li>
+</ol>
+
+<p>windowSpec = Window.orderBy(df["salary"].desc())
+df.withColumn("rank", dense_rank().over(windowSpec))\
+  .filter("rank = 2")
+```</p>
+
+<ol start="30">
+<li><strong>Join DataFrames:</strong>
+<code>python
+df1.join(df2, df1.id == df2.id).select(df1.name, df2.salary)
+</code></li>
+</ol>
+
+<hr />
+
+<h3>🧠 PySpark SQL Questions</h3>
+
+<ol start="31">
+<li><p><strong>Create Temp View:</strong>
+<code>python
+df.createOrReplaceTempView("employees")
+</code></p></li>
+<li><p><strong><code>select()</code> vs <code>withColumn()</code></strong></p>
+
+<ul>
+<li><code>select()</code> returns a new DataFrame with selected columns.</li>
+<li><code>withColumn()</code> adds or replaces a column.</li>
+</ul></li>
+<li><p><strong>Run SQL Queries:</strong>
+<code>python
+spark.sql("SELECT * FROM employees WHERE salary &gt; 50000")
+</code></p></li>
+<li><p><strong><code>explode()</code> vs <code>posexplode()</code></strong></p>
+
+<ul>
+<li><code>explode()</code> – flattens array.</li>
+<li><code>posexplode()</code> – adds position index.</li>
+</ul></li>
+<li><p><strong>Convert DataFrame to SQL Table:</strong>
+<code>python
+df.write.saveAsTable("table_name")
+</code></p></li>
+<li><p><strong>Window Functions:</strong></p>
+
+<ul>
+<li>Examples: <code>row_number()</code>, <code>rank()</code>, <code>lead()</code>, <code>lag()</code> over partitions.</li>
+</ul></li>
+<li><p><strong>RANK and DENSE_RANK:</strong>
+<code>python
+from pyspark.sql.functions import rank, dense_rank
+df.withColumn("rank", rank().over(windowSpec))
+</code></p></li>
+<li><p><strong>Cumulative Sum:</strong>
+<code>python
+from pyspark.sql.functions import sum
+df.withColumn("cum_sum", sum("amount").over(Window.orderBy("date")))
+</code></p></li>
+<li><p><strong><code>groupBy()</code> vs <code>rollup()</code>:</strong></p>
+
+<ul>
+<li><code>groupBy()</code> aggregates at specific level.</li>
+<li><code>rollup()</code> adds sub-totals and grand totals.</li>
+</ul></li>
+<li><p><strong>Pivot Operation:</strong>
+<code>python
+df.groupBy("department").pivot("year").sum("revenue")
+</code></p></li>
+</ol>
+
+<hr />
+
+<h3>🔁 Streaming and Real-time</h3>
+
+<ol start="41">
+<li><p><strong>What is Spark Streaming?</strong></p>
+
+<ul>
+<li>Spark Streaming is a micro-batch streaming engine built on Spark Core. It processes live data streams using DStreams.</li>
+</ul></li>
+<li><p><strong>Structured vs Unstructured Streaming:</strong></p>
+
+<ul>
+<li>Structured: Tabular (DataFrame API, with schema).</li>
+<li>Unstructured: DStream based, low-level.</li>
+</ul></li>
+<li><p><strong>Handle Late Data:</strong></p>
+
+<ul>
+<li>Use <strong>event time</strong> and <strong>watermarking</strong>.</li>
+</ul></li>
+<li><p><strong>Watermarks:</strong></p>
+
+<ul>
+<li>Used to track the progress of event-time and discard late data beyond a threshold.</li>
+</ul></li>
+</ol>
+
+<hr />
+
+<h3>📚 References &amp; Resources</h3>
+
+<ul>
+<li><a href="https://spark.apache.org/docs/latest/api/python/">PySpark Official Docs</a></li>
+<li><a href="https://databricks.com/p/resources/pyspark-cheat-sheet">Cheat Sheet</a></li>
+<li><a href="https://github.com/awesome-spark/awesome-spark">Awesome Spark GitHub</a></li>
+</ul>
+
+<hr />
+
+<h3>✅ Badges</h3>
+
+<p><img src="https://img.shields.io/badge/Apache_Spark-PySpark-orange" alt="PySpark" />
+<img src="https://img.shields.io/badge/license-MIT-blue" alt="License" />
+<img src="https://img.shields.io/badge/status-Ready--to--Use-brightgreen" alt="Status" /></p>

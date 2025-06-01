@@ -1,0 +1,10 @@
+pyspark == 3.4.0
+py4j == 0.10.9.5
+delta - spark == 2.4.0
+numpy == 1.24.3
+pandas == 2.0.2
+matplotlib == 3.7.1
+seaborn == 0.12.2
+jupyter == 1.0.0
+findspark == 2.0.1
+
