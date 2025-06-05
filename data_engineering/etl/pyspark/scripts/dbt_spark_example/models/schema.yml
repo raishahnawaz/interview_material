@@ -1,0 +1,19 @@
+version: 2
+
+sources:
+  - name: raw
+    tables:
+      - name: customers
+      - name: orders
+
+models:
+  - name: stg_customers
+    description: "Staged customers from raw"
+    columns:
+      - name: customer_id
+        tests:
+          - not_null
+          - unique
+
+  - name: mart_customer_summary
+    description: "Aggregated order summary per customer"
