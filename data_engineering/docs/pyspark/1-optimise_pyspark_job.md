@@ -29,6 +29,9 @@ Use `.select()` to trim down unnecessary columns as early as possible. This redu
 ### Push down filters using .filter() or .where()
 Apply filtering logic as early as possible. Spark can push down filters to the data source level, which limits the amount of data loaded into memory, improving speed and efficiency.
 
+### Adapt efficient join strategies
+Use right [joins](./spark_join_strategies.md) for respective use cases
+
 ---
 
 ## 2. Data Format and Storage Optimization
@@ -56,13 +59,13 @@ When working with a large cluster and a DataFrame with few partitions, use `.rep
 
 ---
 
-## 3. Memory and Resource Tuning
+## 3. Memory and Resource [Tuning](./spark_resource_tuning_guide.md)
 
 ### Configure executor memory and cores based on cluster size
 Tuning `--executor-memory`, `--executor-cores`, and `--num-executors` ensures efficient use of cluster resources. Under-provisioning causes task spilling, while over-provisioning leads to executor failures.
 [Details](./spark_executor_config_with_managers.md)
 
-### Enable dynamic allocation
+### Enable [dynamic allocation](./dynamic_allocation_with_resource_managers.md)
 Dynamic allocation allows Spark to scale the number of executors based on workload, which improves resource utilization and lowers idle executor cost.
 
 ### Use broadcast joins for small tables
@@ -120,7 +123,7 @@ Enable event logs to capture job execution details. These can be used for post-m
 If a join key is skewed (e.g., many rows with the same value), salting the key (adding a random prefix/suffix) distributes data more evenly across partitions, avoiding long-running tasks.
 
 ### Use Z-order clustering (Delta Lake only)
-If using [Delta Lake](./delta_lake_full_guide.md), Z-ordering on frequently filtered columns improves query performance by co-locating related data on disk.
+If using [Delta Lake](./3-delta_lake_full_guide.md), Z-ordering on frequently filtered columns improves query performance by co-locating related data on disk.
 
 ---
 

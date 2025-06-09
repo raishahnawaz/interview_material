@@ -27,7 +27,7 @@ pyspark - interview - prep /
 ## 2. DataFrame Operations
 
 ### DataFrame Creation and Basic Operations
-```python
+#python
 # dataframe_basics.py
 from pyspark.sql import DataFrame
 from pyspark.sql.types import *

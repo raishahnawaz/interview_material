@@ -1,7 +1,7 @@
 
 # 🔷 Delta Lake & Delta Tables Explained
 
-Delta Lake is an **open-source storage layer** that adds powerful features like **ACID transactions**, **schema enforcement**, **time travel**, and **update/delete operations** on top of data lakes (e.g., S3, ADLS, GCS, HDFS).
+Delta Lake is an **open-source storage layer** that adds powerful features like [**ACID transactions**](acid_properties_explained.md), **schema enforcement**, **time travel**, and **update/delete operations** on top of data lakes (e.g., S3, ADLS, GCS, HDFS).
 
 ---
 
