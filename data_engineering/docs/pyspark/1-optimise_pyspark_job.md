@@ -123,7 +123,7 @@ Enable event logs to capture job execution details. These can be used for post-m
 If a join key is skewed (e.g., many rows with the same value), salting the key (adding a random prefix/suffix) distributes data more evenly across partitions, avoiding long-running tasks.
 
 ### Use Z-order clustering (Delta Lake only)
-If using [Delta Lake](./3-delta_lake_full_guide.md), Z-ordering on frequently filtered columns improves query performance by co-locating related data on disk.
+If using [Delta Lake](./3-delta_lake_full_guide.md), [Z-ordering](z_order_clustering_comparison.md) on frequently filtered columns improves query performance by co-locating related data on disk.
 
 ---
 
