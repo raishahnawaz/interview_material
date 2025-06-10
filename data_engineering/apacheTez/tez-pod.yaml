@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tez-job
+spec:
+  containers:
+  - name: tez
+    image: your-repo/tez:latest
+    command: ["java", "-cp", "tez-job.jar:/tez/*", "SimpleTezDAG"]
+    volumeMounts:
+      - name: tez-config
+        mountPath: /tez/conf
+  volumes:
+    - name: tez-config
+      configMap:
+        name: tez-config

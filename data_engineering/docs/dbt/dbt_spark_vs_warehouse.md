@@ -2,7 +2,7 @@
 
 ---
 
-## ❓ User's Question
+##  User's Question
 
 > Is it relevant to say it's dbt Spark as dbt code normally translates to target warehouse (i.e., BigQuery) syntax/dialect and is relevant for transformation steps and not sourcing?
 
@@ -56,7 +56,7 @@ SELECT
     first_name,
     last_name,
     created_at
-FROM {{ source('raw', 'customers') }}
+FROM `{{ source('raw', 'customers') }}`
 ```
 
 Compiled to Spark SQL:

@@ -93,14 +93,15 @@ At its core, **dbt allows you to write modular SQL queries as models**, version 
 
 ### A dbt Model (SQL)
 
+
 ```sql
--- models/stg_customers.sql
-SELECT
-    id AS customer_id,
-    first_name,
-    last_name,
-    created_at
-FROM {{ source('raw', 'customers') }}
+--models/stg_customers.sql
+-- SELECT
+--     id AS customer_id,
+--     first_name,
+--     last_name,
+--     created_at
+-- FROM {{ source('raw', 'customers') }}
 ```
 
 ### A Test (YAML)
