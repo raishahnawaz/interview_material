@@ -56,12 +56,12 @@ A Large Language Model (LLM) is a neural network trained on massive amounts of t
 
 ```mermaid
 graph TD
-    A[Input Text] --> B[Encoder (BERT)]
-    A --> C[Encoder-Decoder (T5)]
-    A --> D[Decoder (GPT, Llama, Falcon)]
-    B --> E[Classification, QA, NER]
-    C --> F[Summarization, Translation, QA]
-    D --> G[Generation, Chat, Code]
+    A[Input Text] --> B[Encoder - BERT]
+    A --> C[Encoder-Decoder - T5]
+    A --> D[Decoder - GPT Llama Falcon]
+    B --> E[Classification QA NER]
+    C --> F[Summarization Translation QA]
+    D --> G[Generation Chat Code]
 ```
 
 ---
