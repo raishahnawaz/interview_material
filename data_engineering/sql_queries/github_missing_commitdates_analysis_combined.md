@@ -354,9 +354,10 @@ LIMIT 100;
 
 ## 📊 Summary of Approaches
 
-| Approach             | Uses Date Generation? | Returns Actual Dates? | Filters Users? | Notes                            |
-|----------------------|------------------------|------------------------|----------------|----------------------------------|
-| Part A               | ✅ Yes (`GENERATE_DATE_ARRAY`) | ✅ Yes             | ❌ No          | Easy but uses static calendar   |
-| Part B.1 (Estimate)  | ❌ No                  | ❌ No (counts only)     | ❌ No          | Lightweight estimate via window |
-| Part B.2 (Actual)    | ❌ No                  | ✅ Yes                  | ✅ Yes         | Accurate with flexible filtering |
+| Usecase                             | Approach            | Uses Date Generation or Date Dimension? | Returns Actual Dates? | Filters Users? | Notes                            |
+|-------------------------------------|---------------------|-----------------------------------------|------------------------|----------------|----------------------------------|
+| Maximum number of consecutive dates | Part A              | ❌ No                                    | ✅ Yes             | ❌ No but range | Accurate using window functions  |
+| Actual Missing Dates                | Part B              | ✅ Yes (`GENERATE_DATE_ARRAY`)           | ✅ Yes             | ❌ No           | Easy but uses static calendar    ||                      |                       |                       |                |                                  |
+| Missing Date Counts                 | Part C.1 (Estimate) | ❌ No                                    | ❌ No (counts only)     | ❌ No           | Lightweight estimate via window  |
+| Actual Missing Dates                | Part C.2 (Actual)   | ❌ No                                    | ✅ Yes                  | ✅ Yes          | Accurate with flexible filtering |
 
