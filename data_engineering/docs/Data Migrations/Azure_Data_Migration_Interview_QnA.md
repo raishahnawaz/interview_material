@@ -154,3 +154,7 @@ This ensures minimal disruption and preserves business continuity.
 
 ## 🔹 Client Experience
 - We’ve worked extensively with **Merci** on their **Azure stack** in the **healthcare domain**, along with other enterprise-grade data modernization projects.
+
+
+
+#
