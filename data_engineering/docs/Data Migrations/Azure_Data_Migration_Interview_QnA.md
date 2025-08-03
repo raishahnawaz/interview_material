@@ -114,3 +114,20 @@ Use Azure Cost Management. Prefer serverless and on-demand services where applic
 ### 25. How do you manage data lineage and documentation in a large-scale migration project?
 **Answer:** 
 Use tools like Azure Purview or create custom lineage using pipeline metadata. Document mappings, logic, and dependencies. Maintain versioned documentation in Confluence or Git repositories.
+
+### 26. Do you have experience working with SSRS and SSIS, legacy SQL Server?
+**Answer:**  
+Yes. I’ve worked extensively with SSRS for operational and dashboard-style reporting, including datasets, expressions, and subscriptions. I’ve also developed and maintained SSIS packages for ETL processes, incorporating components like Data Flow Tasks, Control Flow, and script tasks. My experience includes optimizing SSIS performance, parameterization, and error handling.
+
+### 27. How would you plan migration of reports from these sources to Azure services, keeping existing flows (i.e., scheduled reporting etc.) working and avoiding downtime?
+**Answer:**  
+The approach includes:
+1. **Assessment Phase** – Inventory all existing SSRS/SSIS reports/packages, data sources, schedules, and dependencies.
+2. **SSIS Migration** – Use Azure-SSIS Integration Runtime in ADF to lift and shift SSIS packages with minimal changes. Gradually refactor to ADF where possible.
+3. **SSRS Migration** – For paginated reports, migrate to Power BI Report Server or Power BI Service (Premium). Convert relevant SSRS reports into Power BI dashboards if applicable.
+4. **Data Source Redirection** – Point reports to new Azure-based data sources (Azure SQL, Synapse).
+5. **Orchestration** – Replicate scheduling using ADF triggers, Azure Logic Apps, or Power BI scheduling.
+6. **Testing & Parallel Run** – Run both legacy and new systems in parallel to validate outputs.
+7. **Cutover** – Once confidence is established, cut over the traffic with rollback plan.
+
+This ensures minimal disruption and preserves business continuity.
