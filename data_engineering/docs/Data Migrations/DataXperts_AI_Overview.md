@@ -24,15 +24,28 @@
 
 #Migration/Implementation Strategy Presentation 
 
-1. Lift and Shift
-a.key steps : SLAs, hard, 
-b. Key Questions : downtime, vision, total cost analysis, data sizes and data types
-c. Case Studdy and lessons learned
-d. Safety focus
-2. Refactored
-a. b. c.
-3. Hybrid -
 
-Migration Playbooks , AWS, Azure
+## AI Tool Prompt
+I need to create a sales pitch which involves data migration of an organization from legacy sqlserver and SSRS to SSIS to Azure Cloud.
 
-Just directional, don't overwhelm the client
+
+
+It would be initial migration/implementation Strategy Presentation -> Demo
+
+a. Lift and Shift 
+
+b. Refactored 
+
+c. Hybrid 
+
+
+
+2. For all above strategies (can suggest different names or may include another strategy I am not aware), you can  
+
+a. format key steps for migration : SLAs, hard requirement, Azure tools choice and Why (P.S suggest and add steps or important considerations I am not aware of)
+
+b. Key Questions from client : i.e downtime, vision, total cost analysis, data sizes and data types c. Case Studdy and lessons learned d. Safety focus
+
+3. Can get insights from migration Playbooks , AWS, Azure
+
+4. Presentation should be directional, don't overwhelm the client
